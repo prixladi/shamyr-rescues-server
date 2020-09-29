@@ -7,6 +7,7 @@ export const errorHandler = (err: Error, _: Request, res: Response, __: NextFunc
     return res.status(err.statusCode).json(err);
   }
 
+  console.log(err);
   if (process.env.NODE_ENV === 'development') {
     return res.status(INTERNAL_SERVER_ERROR).json(err);
   }
