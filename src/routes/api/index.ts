@@ -1,8 +1,8 @@
 import PromiseRouter from 'express-promise-router';
-import { router as places } from './placesController';
+import places, { route as placesRoute } from './controllers/places';
 
 const router = PromiseRouter();
 
-router.use('/places', places);
+router.use(placesRoute, places);
 
-export { router };
+export default router;

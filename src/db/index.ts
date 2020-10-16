@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import { dbConfig } from '../configs';
-import Places from './models/Places';
+import { define as definePlaces } from './entities/places';
 
 const sequelize = new Sequelize(dbConfig.db, dbConfig.user, dbConfig.password, {
   host: dbConfig.host,
@@ -14,7 +14,7 @@ const sequelize = new Sequelize(dbConfig.db, dbConfig.user, dbConfig.password, {
   },
 });
 
-const Place = Places(sequelize);
+const Place = definePlaces(sequelize);
 
 const syncDb = async (force: boolean): Promise<void> => {
   await sequelize.sync({ force: force });

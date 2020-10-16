@@ -27,6 +27,17 @@ services:
     links:
     - "db:pgsql-server"
 
+  service:
+    image: shamyr/rescues/service
+    ports:
+      - 8000:80
+    environment:
+      DB_HOST: "db"
+      PORT: "80"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      
 volumes:
   db-data:
   pgadmin-data:

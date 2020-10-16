@@ -1,5 +1,5 @@
 import PromiseRouter from 'express-promise-router';
-import { router as api } from './api';
+import api from './api';
 import swagger from '../swagger/swagger.json';
 
 const router = PromiseRouter();
@@ -11,4 +11,4 @@ router.get('/docs/swagger.json', (_, res) => {
   res.send(swagger);
 });
 
-export { router };
+export default router;
