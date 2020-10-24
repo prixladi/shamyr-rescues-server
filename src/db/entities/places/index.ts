@@ -19,6 +19,7 @@ const attributes = {
   websiteUrl: STRING(1200),
   imageUrl: STRING(1200),
   quote: TEXT,
+  userId: STRING(24),
 };
 
 const indexes = [{ name: 'IX_countryCode', fields: ['countryCode'] }];

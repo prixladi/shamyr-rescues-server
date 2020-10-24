@@ -3,13 +3,20 @@ import { NewPlaceEntity, PlaceEntity, PlaceEntityPreviewInclude, PlaceEntityPrev
 
 const createOne = async (entity: NewPlaceEntity): Promise<PlaceEntity> => {
   const result = await Place.create(entity);
-  
+
   return result.get({ clone: true });
 };
 
-const getMany = async (offset: number, limit: number): Promise<PlaceEntityPreviews> => {
-  const result = await Place.findAll({ offset, limit, attributes: PlaceEntityPreviewInclude });
-  const count = await Place.count();
+type Query = {
+  offset: number;
+  limit: number;
+  userId?: string;
+};
+const getMany = async (query: Query): Promise<PlaceEntityPreviews> => {
+  const { offset, limit, ...where } = query;
+
+  const result = await Place.findAll({ where, offset, limit, attributes: PlaceEntityPreviewInclude });
+  const count = await Place.count({ where });
 
   return {
     count,

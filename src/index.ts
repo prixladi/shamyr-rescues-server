@@ -4,6 +4,7 @@ import { syncDb } from './db';
 import { notFoundHandler, corsHandler, errorHandler, jsonParserHandler } from './utils/handlers';
 import { initCountries } from './data/countries';
 import { httpLogger } from './logging';
+import { startTokenFetching } from './auth/tokenService';
 
 const app: express.Application = express()
   .use(express.urlencoded({ extended: true }))
@@ -14,8 +15,13 @@ const app: express.Application = express()
   .use(errorHandler)
   .use(notFoundHandler);
 
-syncDb(true);
-initCountries();
+const main = async () => {
+  await syncDb(true);
+  initCountries();
+  startTokenFetching();
+}
+
+main();
 
 const port = process.env.PORT || '8000';
 app.listen(port, () => {

@@ -8,7 +8,8 @@ type PlaceEntityPreview = {
   websiteUrl?: string;
 };
 
-interface PlaceEntity extends PlaceEntityPreview {
+type PlaceEntity = PlaceEntityPreview & {
+  userId: string;
   address?: string;
   description1?: string;
   description2?: string;
@@ -21,6 +22,7 @@ type NewPlaceEntity = {
   name: string;
   shortDescription: string;
   countryCode: string;
+  userId: string;
   address?: string;
   description1?: string;
   description2?: string;

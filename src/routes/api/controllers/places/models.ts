@@ -1,3 +1,7 @@
+import qs from 'qs';
+
+type ParamsDictionary = { [key: string]: string };
+
 type CreatePlaceModel = {
   name: string;
   shortDescription: string;
@@ -41,9 +45,10 @@ interface PlaceDetailModel extends PlacePreviewModel {
   quote?: string;
 }
 
-type PlaceQueryModel = {
-  offset: string;
-  limit: string;
+type PlaceQueryModel = qs.ParsedQs & {
+  offset: number;
+  limit: number;
+  userId?: string;
 };
 
 type PlacesModel = {
@@ -51,4 +56,17 @@ type PlacesModel = {
   places: PlacePreviewModel[];
 };
 
-export { CreatePlaceModel, UpdatePlaceModel, PlacePreviewModel, PlaceDetailModel, PlaceQueryModel, PlacesModel };
+type PlaceIdParmasModel = ParamsDictionary & {
+  id: number;
+};
+
+export {
+  CreatePlaceModel,
+  UpdatePlaceModel,
+  PlacePreviewModel,
+  PlacesModel,
+  PlaceDetailModel,
+  PlaceQueryModel,
+  PlaceIdParmasModel,
+  ParamsDictionary,
+};

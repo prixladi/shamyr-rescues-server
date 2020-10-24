@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import { dbConfig } from '../configs';
-import { define as definePlaces } from './entities/places';
+import defineEntities from './entities';
 
 const sequelize = new Sequelize(dbConfig.db, dbConfig.user, dbConfig.password, {
   host: dbConfig.host,
@@ -14,11 +14,11 @@ const sequelize = new Sequelize(dbConfig.db, dbConfig.user, dbConfig.password, {
   },
 });
 
-const Place = definePlaces(sequelize);
+const { Place, User } = defineEntities(sequelize);
 
 const syncDb = async (force: boolean): Promise<void> => {
   await sequelize.sync({ force: force });
   console.log(`Database & tables created!`);
 };
 
-export { syncDb, Place };
+export { syncDb, Place, User };

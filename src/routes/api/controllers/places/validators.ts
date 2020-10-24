@@ -1,5 +1,5 @@
 import { Joi } from 'express-validation';
-import { CreatePlaceModel, PlaceQueryModel, UpdatePlaceModel } from './models';
+import { CreatePlaceModel, PlaceIdParmasModel, PlaceQueryModel, UpdatePlaceModel } from './models';
 import { countryCodeValidator } from '../../../../utils/validators';
 
 const createPlaceModelValidator = {
@@ -33,7 +33,7 @@ const updatePlaceModelValidator = {
 };
 
 const routeIdValidator = {
-  params: Joi.object({
+  params: Joi.object<PlaceIdParmasModel>({
     placeId: Joi.number().min(1).required(),
   }),
 };
@@ -42,6 +42,7 @@ const placeQueryModelValidator = {
   query: Joi.object<PlaceQueryModel>({
     offset: Joi.number().min(0).required(),
     limit: Joi.number().min(1).max(200).required(),
+    userId: Joi.string().regex(/^[a-f\d]{24}$/),
   }),
 };
 

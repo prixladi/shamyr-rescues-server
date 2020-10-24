@@ -3,29 +3,31 @@ import { createPlaceModelValidator, updatePlaceModelValidator, placeQueryModelVa
 import { validate } from 'express-validation';
 import { OK, CREATED, NOT_FOUND, NO_CONTENT } from 'http-codes';
 import * as PlaceRepository from '../../../../db/repositories/placeRepository';
-import { CreatePlaceModel, PlaceDetailModel, PlacesModel, UpdatePlaceModel } from './models';
-
-const router = PromiseRouter();
+import { CreatePlaceModel, ParamsDictionary, PlaceDetailModel, PlaceIdParmasModel, PlaceQueryModel, PlacesModel, UpdatePlaceModel } from './models';
+import { getCurrentUser, handleAuth } from '../../../../auth/handlers';
 
 const route = '/places';
+const router = PromiseRouter();
 
-router.post<any, PlaceDetailModel, CreatePlaceModel, any>('/', validate(createPlaceModelValidator), async (req, res) => {
-  const resultPlace = await PlaceRepository.createOne(req.body);
+router.post<ParamsDictionary, PlaceDetailModel, CreatePlaceModel>('/', handleAuth, validate(createPlaceModelValidator), async (req, res) => {
+  const user = getCurrentUser(req);
+
+  const resultPlace = await PlaceRepository.createOne({ userId: user.id, ...req.body });
   return res.location(`${route}/${resultPlace.id}`).sendStatus(CREATED);
 });
 
-router.get<any, PlacesModel, void, any>('/', validate(placeQueryModelValidator), async (req, res) => {
-  const result = await PlaceRepository.getMany(Number(req.query.offset), Number(req.query.limit));
+router.get<ParamsDictionary, PlacesModel, void, PlaceQueryModel>('/', validate(placeQueryModelValidator), async (req, res) => {
+  const result = await PlaceRepository.getMany(req.query);
   return res.status(OK).json(result);
 });
 
-router.get('/:placeId', validate(routeIdValidator), async (req, res) => {
+router.get<ParamsDictionary, PlaceDetailModel>('/:placeId', validate(routeIdValidator), async (req, res) => {
   const result = await PlaceRepository.getOne(Number(req.params.placeId));
   if (result === null) return res.sendStatus(NOT_FOUND);
   return res.status(OK).json(result);
 });
 
-router.put<any, void, UpdatePlaceModel, any>(
+router.put<PlaceIdParmasModel, void, UpdatePlaceModel>(
   '/:placeId',
   validate(routeIdValidator),
   validate(updatePlaceModelValidator),
