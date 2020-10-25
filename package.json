@@ -1,7 +1,11 @@
 {
-  "name": "shamyr-rescues",
+  "name": "shamyr-rescues-server",
   "version": "1.0.0",
-  "description": "",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/prixladi/shamyr-rescues-server"
+  },
+  "description": "Backend for Shamyr Rescues (https://github.com/prixladi/shamyr-rescues-server) project.",
   "main": "./src/index.ts",
   "scripts": {
     "start": "nodemon ./src/index.ts",

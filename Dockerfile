@@ -1,17 +1,17 @@
-FROM node:12.17.0-alpine
+FROM node:12.17.0-alpine as build
 
 WORKDIR /app
 COPY package*.json ./
 COPY . .
-RUN ls
-RUN npm install
-RUN npm run build
+RUN yarn install
+RUN yarn run build
 
-FROM node:12.17.0-alpine
+FROM node:12.17.0-alpine as final
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --only=production
-COPY --from=0 /app/build ./build
-EXPOSE 3000
-CMD node /app/build/index.js
+RUN yarn install --only=production
+COPY --from=build /app/build ./build
+
+EXPOSE 80
+ENTRYPOINT [ "node", "/app/build/index.js" ]
