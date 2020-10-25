@@ -36,7 +36,7 @@ type PlacePreviewModel = {
   websiteUrl?: string;
 };
 
-interface PlaceDetailModel extends PlacePreviewModel {
+type PlaceDetailModel = PlacePreviewModel & {
   address?: string;
   description1?: string;
   description2?: string;
@@ -57,7 +57,7 @@ type PlacesModel = {
 };
 
 type PlaceIdParmasModel = ParamsDictionary & {
-  id: number;
+  placeId: number;
 };
 
 export {

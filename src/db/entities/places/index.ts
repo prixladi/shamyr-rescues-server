@@ -1,9 +1,10 @@
-import { Sequelize, TEXT, STRING, INTEGER, ModelDefined } from 'sequelize';
+import { BOOLEAN } from 'sequelize';
+import { Sequelize, TEXT, STRING, INTEGER, ModelDefined, ModelAttributes, Model } from 'sequelize';
 import { NewPlaceEntity, PlaceEntity } from './models';
 
 type PlaceModel = ModelDefined<PlaceEntity, NewPlaceEntity>;
 
-const attributes = {
+const attributes: ModelAttributes<Model<PlaceEntity, NewPlaceEntity>> = {
   id: {
     type: INTEGER,
     primaryKey: true,
@@ -12,6 +13,8 @@ const attributes = {
   name: { type: STRING(80), allowNull: false },
   shortDescription: { type: TEXT, allowNull: false },
   countryCode: { type: STRING(2), allowNull: false },
+  userId: STRING(24),
+  removed: { type: BOOLEAN, defaultValue: false },
   description1: TEXT,
   description2: TEXT,
   description3: TEXT,
@@ -19,7 +22,6 @@ const attributes = {
   websiteUrl: STRING(1200),
   imageUrl: STRING(1200),
   quote: TEXT,
-  userId: STRING(24),
 };
 
 const indexes = [{ name: 'IX_countryCode', fields: ['countryCode'] }];

@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
+import { Application, NextFunction, Request, Response } from 'express';
 import { getConfig } from '../tokenService/tokenFetcher';
 import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { UNAUTHORIZED } from 'http-codes';
-import * as userRepository from '../../db/repositories/userRepository';
+import { userRepository } from '../../db/repositories';
 import { UserEntity } from '../../db/entities/users';
 
 const tokenType = 'Bearer';
@@ -57,8 +57,8 @@ const handleAuth = async (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-const getCurrentUser = (req: Request) => {
-  const user = req.app.get('user') as UserEntity | null;
+const getCurrentUser = (reqProps: Application) => {
+  const user = reqProps.get('user') as UserEntity | null;
   if (!user) {
     throw new Error('Unable to retrieve user from current context.');
   }

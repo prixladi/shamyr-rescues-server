@@ -10,6 +10,7 @@ type PlaceEntityPreview = {
 
 type PlaceEntity = PlaceEntityPreview & {
   userId: string;
+  removed: boolean
   address?: string;
   description1?: string;
   description2?: string;
