@@ -43,7 +43,7 @@ type PlaceDetailModel = PlacePreviewModel & {
   description3?: string;
   imageUrl?: string;
   quote?: string;
-}
+};
 
 type PlaceQueryModel = qs.ParsedQs & {
   offset: number;

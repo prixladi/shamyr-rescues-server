@@ -19,7 +19,7 @@ const main = async () => {
   await syncDb(true);
   initCountries();
   startTokenFetching();
-}
+};
 
 main();
 

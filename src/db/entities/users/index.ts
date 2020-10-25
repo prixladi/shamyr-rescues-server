@@ -7,7 +7,7 @@ const attributes: ModelAttributes<Model<UserEntity, NewUserEntity>> = {
   id: {
     type: STRING(24),
     primaryKey: true,
-  }
+  },
 };
 
 const options: ModelOptions = { tableName: 'users' };

@@ -42,7 +42,9 @@ const placeQueryModelValidator = {
   query: Joi.object<PlaceQueryModel>({
     offset: Joi.number().min(0).required(),
     limit: Joi.number().min(1).max(200).required(),
-    userId: Joi.string().regex(/^[a-f\d]{24}$/).optional(),
+    userId: Joi.string()
+      .regex(/^[a-f\d]{24}$/)
+      .optional(),
   }),
 };
 
