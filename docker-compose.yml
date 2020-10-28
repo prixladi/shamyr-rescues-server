@@ -63,6 +63,7 @@ services:
       AUTHORITY_SERVICE_URL: http://authority
       DB_HOST: postgres
       PORT: 80 
+      NODE_ENV: developement
     build:
       context: .
       dockerfile: ./Dockerfile    
