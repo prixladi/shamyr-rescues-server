@@ -6,7 +6,7 @@ const createPlaceModelValidator = {
   body: Joi.object<CreatePlaceModel>({
     name: Joi.string().min(5).max(80).required(),
     shortDescription: Joi.string().max(350).required(),
-    countryCode: Joi.string().max(2).required().custom(countryCodeValidator),
+    countryCode: Joi.string().min(2).max(2).required().custom(countryCodeValidator),
     address: Joi.string().max(600).allow('').optional(),
     description1: Joi.string().max(10000).allow('').optional(),
     description2: Joi.string().max(10000).allow('').optional(),

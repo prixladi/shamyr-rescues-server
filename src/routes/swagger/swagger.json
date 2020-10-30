@@ -1,0 +1,468 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Shamyr Rescues",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/places": {
+      "post": {
+        "tags": [
+          "Places"
+        ],
+        "summary": "Creates new place.",
+        "operationId": "PlacesController/PostAsync",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePlaceModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePlaceModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Place created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaceDetailModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaceDetailModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Model is not valid"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Places"
+        ],
+        "summary": "Gets preview of places.",
+        "operationId": "PlacesController/GetManyAsync",
+        "parameters": [
+          {
+            "name": "Skip",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "UserId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns place previews",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlacePreviewModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlacePreviewModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Query model is not valid"
+          }
+        }
+      }
+    },
+    "/api/places/{id}": {
+      "get": {
+        "tags": [
+          "Places"
+        ],
+        "summary": "Gets preview of places.",
+        "operationId": "PlacesController/GetAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns place detal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaceDetailModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaceDetailModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Path is not valid"
+          },
+          "404": {
+            "description": "Place with provided id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Places"
+        ],
+        "summary": "Updates places.",
+        "operationId": "PlacesController/PutAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Place updated"
+          },
+          "400": {
+            "description": "Model is not valid"
+          },
+          "404": {
+            "description": "Place with provided id not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Places"
+        ],
+        "summary": "Marks place as deleted places.",
+        "operationId": "PlacesController/DeleteAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Place marked as deleted"
+          },
+          "400": {
+            "description": "Path is not valid"
+          },
+          "404": {
+            "description": "Place with provided id not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PlacePreviewModel": {
+        "required": [
+          "id",
+          "name",
+          "shortDescription",
+          "countryCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "maxLength": 80,
+            "minLength": 5,
+            "type": "string",
+            "nullable": true
+          },
+          "shortDescription": {
+            "maxLength": 80,
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string",
+            "nullable": true
+          },
+          "websiteUrl": {
+            "maxLength": 1200,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlaceDetailModel": {
+        "required": [
+          "id",
+          "name",
+          "shortDescription",
+          "countryCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "maxLength": 80,
+            "minLength": 5,
+            "type": "string"
+          },
+          "shortDescription": {
+            "maxLength": 80,
+            "type": "string"
+          },
+          "countryCode": {
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string"
+          },
+          "address": {
+            "maxLength": 600,
+            "type": "string",
+            "nullable": true
+          },
+          "description1": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "description2": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "description3": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "maxLength": 1200,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "quote": {
+            "maxLength": 2000,
+            "type": "string",
+            "nullable": true
+          },
+          "websiteUrl": {
+            "maxLength": 1200,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatePlaceModel": {
+        "required": [
+          "name",
+          "shortDescription",
+          "countryCode"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 80,
+            "minLength": 5,
+            "type": "string"
+          },
+          "shortDescription": {
+            "maxLength": 80,
+            "type": "string"
+          },
+          "countryCode": {
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string"
+          },
+          "address": {
+            "maxLength": 600,
+            "type": "string",
+            "nullable": true
+          },
+          "description1": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "description2": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "description3": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "maxLength": 1200,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "quote": {
+            "maxLength": 2000,
+            "type": "string",
+            "nullable": true
+          },
+          "websiteUrl": {
+            "maxLength": 1200,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdatePlaceModel": {
+        "required": [
+          "name",
+          "shortDescription",
+          "countryCode"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 80,
+            "minLength": 5,
+            "type": "string"
+          },
+          "shortDescription": {
+            "maxLength": 80,
+            "type": "string"
+          },
+          "countryCode": {
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string"
+          },
+          "address": {
+            "maxLength": 600,
+            "type": "string",
+            "nullable": true
+          },
+          "description1": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "description2": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "description3": {
+            "maxLength": 10000,
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "maxLength": 1200,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "quote": {
+            "maxLength": 2000,
+            "type": "string",
+            "nullable": true
+          },
+          "websiteUrl": {
+            "maxLength": 1200,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "JWT authorization",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ]
+}

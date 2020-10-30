@@ -1,6 +1,6 @@
 import PromiseRouter from 'express-promise-router';
 import api from './api';
-import swagger from '../swagger/swagger.json';
+import swagger from './swagger/swagger.json';
 
 const router = PromiseRouter();
 

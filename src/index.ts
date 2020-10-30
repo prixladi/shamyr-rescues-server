@@ -16,7 +16,7 @@ const app: express.Application = express()
   .use(notFoundHandler);
 
 const main = async () => {
-  await syncDb(true);
+  await syncDb(false);
   initCountries();
   startTokenFetching();
 };
