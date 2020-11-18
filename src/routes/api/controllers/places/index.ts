@@ -5,7 +5,6 @@ import { OK, CREATED, NOT_FOUND, NO_CONTENT } from 'http-codes';
 import { placeRepository } from '../../../../db/repositories';
 import {
   CreatePlaceModel,
-  ParamsDictionary,
   PlaceDetailModel,
   PlaceIdParmasModel,
   PlaceQueryModel,
@@ -14,6 +13,7 @@ import {
 } from './models';
 import { getCurrentUser, handleAuth } from '../../../../auth/handlers';
 import { handleCurrentUserResource } from './helpers';
+import { ParamsDictionary } from '../models';
 
 const route = '/places';
 const router = PromiseRouter();

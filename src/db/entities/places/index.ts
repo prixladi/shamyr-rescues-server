@@ -1,6 +1,7 @@
 import { BOOLEAN } from 'sequelize';
 import { Sequelize, TEXT, STRING, INTEGER, ModelDefined, ModelAttributes, Model } from 'sequelize';
 import { NewPlaceEntity, PlaceEntity } from './models';
+import { nameof } from 'ts-simple-nameof';
 
 type PlaceModel = ModelDefined<PlaceEntity, NewPlaceEntity>;
 
@@ -24,7 +25,7 @@ const attributes: ModelAttributes<Model<PlaceEntity, NewPlaceEntity>> = {
   quote: TEXT,
 };
 
-const indexes = [{ name: 'IX_countryCode', fields: ['countryCode'] }];
+const indexes = [{ name: 'IX_countryCode', fields: [ nameof<PlaceEntity>(e => e.countryCode)] }];
 
 const options = { tableName: 'places', indexes };
 

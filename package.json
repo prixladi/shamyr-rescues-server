@@ -2,20 +2,20 @@
   "name": "shamyr-rescues-server",
   "version": "1.0.0",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/prixladi/shamyr-rescues-server"
+    "type": "git",
+    "url": "https://github.com/prixladi/shamyr-rescues-server"
   },
-  "description": "Backend for Shamyr Rescues (https://github.com/prixladi/shamyr-rescues-server) project.",
+  "description": "Backend for Shamyr Rescues (https://github.com/prixladi/shamyr-rescues) project.",
   "main": "./src/index.ts",
   "scripts": {
     "start": "nodemon ./src/index.ts",
     "eslint": "eslint -c .eslintrc.json \"**/*.ts\"",
     "prettier:run": "prettier --write \"**/*.ts\"",
     "prettier:check": "prettier -l \"**/*.ts\"",
-    "build": "tsc "
+    "build": "tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ladislav Prix",
   "license": "ISC",
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
@@ -33,7 +33,8 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "nodemon": "^1.19.4",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "ts-simple-nameof": "^1.3.0"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

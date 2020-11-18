@@ -1,6 +1,5 @@
 import qs from 'qs';
-
-type ParamsDictionary = { [key: string]: string };
+import { ParamsDictionary } from '../models';
 
 type CreatePlaceModel = {
   name: string;
@@ -67,6 +66,5 @@ export {
   PlacesModel,
   PlaceDetailModel,
   PlaceQueryModel,
-  PlaceIdParmasModel,
-  ParamsDictionary,
+  PlaceIdParmasModel
 };

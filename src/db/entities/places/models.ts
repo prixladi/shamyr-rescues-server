@@ -1,4 +1,4 @@
-const PlaceEntityPreviewInclude = ['id', 'name', 'shortDescription', 'countryCode', 'websiteUrl'];
+const PlaceEntityPreviewInclude : (keyof PlaceEntityPreview)[] = ['id', 'name', 'shortDescription', 'countryCode', 'websiteUrl'];
 
 type PlaceEntityPreview = {
   id: number;
