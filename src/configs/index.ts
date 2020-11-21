@@ -1,4 +1,4 @@
-const appPort = 8000 || process.env.PORT || '8000';
+const appPort = process.env.PORT || '8000';
 const devEnvironment = process.env.NODE_ENV === 'development';
 
 export { config as dbConfig } from './dbConfig';

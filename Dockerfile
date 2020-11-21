@@ -13,5 +13,4 @@ COPY package*.json ./
 RUN yarn install --only=production
 COPY --from=build /app/build ./build
 
-EXPOSE 80
 ENTRYPOINT [ "node", "/app/build/index.js" ]
