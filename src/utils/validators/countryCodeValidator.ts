@@ -1,7 +1,7 @@
 import { existsByCode } from '../../data/countries';
-import { CustomHelpers } from 'joi';
+import { CustomHelpers, ErrorReport } from 'joi';
 
-const validate = (str: string, helpers: CustomHelpers) => {
+const validate = (str: string, helpers: CustomHelpers): ErrorReport | boolean => {
   if (existsByCode(str)) return true;
 
   return helpers.message({ custom: `Country code '${str}' does not exist.` });

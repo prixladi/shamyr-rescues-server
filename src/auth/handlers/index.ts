@@ -11,7 +11,7 @@ const getToken = (req: Request) => {
   return token && token.startsWith(tokenType) && token.substring(tokenType.length + 1);
 };
 
-const handleAuth = async (req: Request, res: Response, next: NextFunction) => {
+const handleAuth = async (req: Request, res: Response, next: NextFunction): Promise<Response<void> | undefined> => {
   const token = getToken(req);
   if (!token) {
     return res.sendStatus(UNAUTHORIZED);
@@ -27,7 +27,7 @@ const handleAuth = async (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-const getCurrentUser = (reqProps: Application) => {
+const getCurrentUser = (reqProps: Application): UserEntity => {
   const user = reqProps.get('user') as UserEntity | null;
   if (!user) {
     throw new Error('Unable to retrieve user from current context.');

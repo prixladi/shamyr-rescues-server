@@ -59,12 +59,4 @@ type PlaceIdParmasModel = ParamsDictionary & {
   placeId: number;
 };
 
-export {
-  CreatePlaceModel,
-  UpdatePlaceModel,
-  PlacePreviewModel,
-  PlacesModel,
-  PlaceDetailModel,
-  PlaceQueryModel,
-  PlaceIdParmasModel
-};
+export { CreatePlaceModel, UpdatePlaceModel, PlacePreviewModel, PlacesModel, PlaceDetailModel, PlaceQueryModel, PlaceIdParmasModel };

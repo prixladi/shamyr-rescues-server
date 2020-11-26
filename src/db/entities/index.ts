@@ -1,9 +1,14 @@
 import { Sequelize } from 'sequelize';
-import { define as definePlaces, PlaceEntity } from './places';
-import { define as defineUsers } from './users';
+import { define as definePlaces, PlaceEntity, PlaceModel } from './places';
+import { define as defineUsers, UserModel } from './users';
 import { nameof } from 'ts-simple-nameof';
 
-export default (sequelize: Sequelize) => {
+type Db = {
+  Place: PlaceModel;
+  User: UserModel;
+};
+
+export default (sequelize: Sequelize): Db => {
   const Place = definePlaces(sequelize);
   const User = defineUsers(sequelize);
 

@@ -25,7 +25,7 @@ const attributes: ModelAttributes<Model<PlaceEntity, NewPlaceEntity>> = {
   quote: TEXT,
 };
 
-const indexes = [{ name: 'IX_countryCode', fields: [ nameof<PlaceEntity>(e => e.countryCode)] }];
+const indexes = [{ name: 'IX_countryCode', fields: [nameof<PlaceEntity>((e) => e.countryCode)] }];
 
 const options = { tableName: 'places', indexes };
 

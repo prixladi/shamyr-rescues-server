@@ -12,7 +12,7 @@ type TokenConfig = {
 
 let config: TokenConfig | null = null;
 
-const startConfigFetchLoop = async () => {
+const startConfigFetchLoop = async (): Promise<never> => {
   while (true) {
     const newConfig = await tryFetchConfig();
     let delayMs: number;
@@ -27,9 +27,9 @@ const startConfigFetchLoop = async () => {
   }
 };
 
-const getConfig = () => config;
+const getConfig = (): TokenConfig | null => config;
 
-const tryFetchConfig = async () => {
+const tryFetchConfig = async (): Promise<TokenConfig | null> => {
   try {
     const result = await fetch(`${authConfig.authorityServiceUrl}/api/v1/token/configuration`);
     if (result.status >= 300) throw new Error(`Unexpected status ${result.status}.`);

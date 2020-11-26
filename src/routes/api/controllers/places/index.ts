@@ -3,14 +3,7 @@ import { createPlaceModelValidator, updatePlaceModelValidator, placeQueryModelVa
 import { validate } from 'express-validation';
 import { OK, CREATED, NOT_FOUND, NO_CONTENT } from 'http-codes';
 import { placeRepository } from '../../../../db/repositories';
-import {
-  CreatePlaceModel,
-  PlaceDetailModel,
-  PlaceIdParmasModel,
-  PlaceQueryModel,
-  PlacesModel,
-  UpdatePlaceModel,
-} from './models';
+import { CreatePlaceModel, PlaceDetailModel, PlaceIdParmasModel, PlaceQueryModel, PlacesModel, UpdatePlaceModel } from './models';
 import { getCurrentUser, handleAuth } from '../../../../auth/handlers';
 import { handleCurrentUserResource } from './helpers';
 import { ParamsDictionary } from '../models';

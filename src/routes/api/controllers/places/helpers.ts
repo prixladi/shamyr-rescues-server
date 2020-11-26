@@ -4,7 +4,11 @@ import { getCurrentUser } from '../../../../auth/handlers';
 import { placeRepository } from '../../../../db/repositories';
 import { PlaceIdParmasModel } from './models';
 
-const handleCurrentUserResource = async (req: Request<PlaceIdParmasModel>, res: Response, next: NextFunction) => {
+const handleCurrentUserResource = async (
+  req: Request<PlaceIdParmasModel>,
+  res: Response,
+  next: NextFunction
+): Promise<Response<void> | undefined> => {
   const user = getCurrentUser(req.app);
   const result = await placeRepository.getOne(req.params.placeId);
 
