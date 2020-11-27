@@ -1,4 +1,4 @@
-# Shamyr rescues react
+# Shamyr Rescues Server
 
 Backend for [Shamyr Rescues](https://github.com/prixladi/shamyr-rescues) project,<br />
 For everything to function properly should be run together with [Frontend](https://github.com/prixladi/shamyr-rescues-server).
