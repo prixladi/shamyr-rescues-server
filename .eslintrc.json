@@ -11,6 +11,15 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "no-constant-condition": "off"
-  }
+    "curly": 1,
+    "quotes": [1, "single"]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.json"],
+      "rules": {
+        "quotes": [2, "double"]
+      }
+    }
+  ]
 }

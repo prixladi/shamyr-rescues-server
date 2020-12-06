@@ -21,7 +21,9 @@ const createPublicKey = (infoKey: string) => `-----BEGIN PUBLIC KEY-----\n${info
 
 const validateToken = (token: string): PayloadType | null => {
   const config = getConfig();
-  if (!config) throw new Error('Unable to retrieve token config.');
+  if (!config) {
+    throw new Error('Unable to retrieve token config.');
+  }
 
   try {
     return jwt.verify(token, createPublicKey(config.publicKey), {
@@ -30,7 +32,9 @@ const validateToken = (token: string): PayloadType | null => {
       algorithms: [config.signatureAlgorithm],
     }) as PayloadType;
   } catch (err) {
-    if (err instanceof JsonWebTokenError) return null;
+    if (err instanceof JsonWebTokenError) {
+      return null;
+    }
 
     throw err;
   }

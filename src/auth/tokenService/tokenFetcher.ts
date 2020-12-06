@@ -13,13 +13,17 @@ type TokenConfig = {
 let config: TokenConfig | null = null;
 
 const startConfigFetchLoop = async (): Promise<never> => {
-  while (true) {
+  console.log('Started fetching token configuration.');
+
+  for (;;) {
     const newConfig = await tryFetchConfig();
     let delayMs: number;
 
-    if (!newConfig && !config) delayMs = 20 * 1000;
-    else if (!newConfig) delayMs = 5 * 60 * 1000;
-    else {
+    if (!newConfig && !config) {
+      delayMs = 20 * 1000;
+    } else if (!newConfig) {
+      delayMs = 5 * 60 * 1000;
+    } else {
       config = newConfig;
       delayMs = 60 * 60 * 1000;
     }
@@ -32,9 +36,11 @@ const getConfig = (): TokenConfig | null => config;
 const tryFetchConfig = async (): Promise<TokenConfig | null> => {
   try {
     const result = await fetch(`${authConfig.authorityServiceUrl}/api/v1/token/configuration`);
-    if (result.status >= 300) throw new Error(`Unexpected status ${result.status}.`);
+    if (result.status >= 300) {
+      throw new Error(`Unexpected status ${result.status}.`);
+    }
 
-    console.log('Successfuly fetched new token configuration.');
+    console.log('Successfully fetched new token configuration.');
     return (await result.json()) as TokenConfig;
   } catch (err) {
     console.log('Error while fetching token configuration.');

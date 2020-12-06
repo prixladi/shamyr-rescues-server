@@ -29,7 +29,9 @@ const getMany = async (query: Query): Promise<PlaceEntityPreviews> => {
 const getOne = async (id: number): Promise<PlaceEntity | null> => {
   const query = { where: { id, removed: false } };
   const result = await Place.findOne(query);
-  if (result === null) return null;
+  if (result === null) {
+    return null;
+  }
 
   return result.get({ clone: true });
 };

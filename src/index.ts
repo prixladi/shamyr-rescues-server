@@ -1,6 +1,6 @@
 import express from 'express';
 import router from './routes';
-import { syncDb } from './db';
+import { initDb, closeConnection as closeDbConnection } from './db';
 import { notFoundHandler, corsHandler, errorHandler, jsonParserHandler } from './utils/handlers';
 import { initCountries } from './data/countries';
 import { httpLogger } from './logging';
@@ -17,9 +17,17 @@ const main = async () => {
     .use(errorHandler)
     .use(notFoundHandler);
 
-  await syncDb(false);
+  await initDb(false);
   initCountries();
   startTokenFetching();
+
+  const shutdown = async () => {
+    await closeDbConnection();
+    process.exit();
+  };
+
+  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', shutdown);
 
   app.listen(appPort, () => {
     console.log(`Listening to requests on http://localhost:${appPort}`);

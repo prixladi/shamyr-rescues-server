@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: secret
       PGDATA: /var/lib/postgresql/data
     volumes:
-    - db-data:/var/lib/postgresql/data
+    - postgresdata:/var/lib/postgresql/data
 
   mongodb:
     image: mongo:latest    
@@ -50,7 +50,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile  
-
+      
   pgadmin:
     image: dpage/pgadmin4:4.18
     ports:
@@ -60,7 +60,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: secret
       PGADMIN_LISTEN_PORT: 80
     volumes:
-    - pgadmin-data:/var/lib/pgadmin
+    - pgadmindata:/var/lib/pgadmin
     links:
     - postgres:pgsql-server
 
@@ -71,7 +71,17 @@ services:
     environment:
       API_URL: http://localhost:8000/docs/swagger.json
 
+  react:
+    image: shamyr/rescues-react
+    ports: 
+      - 3000:80 
+    environment:
+      API_URL: http://localhost:8000/api
+      AUTH_API_URL: http://localhost:8080/api/v1
+      AUTH_API_CLIENT_ID: 5f881d54384e9c6ee9a9ca32
+      GOOGLE_CLIENT_ID: 819252787843-a69r5nl2li8jchhs7t7qtult32rqami8.apps.googleusercontent.com
+      
 volumes:
-  db-data:
-  pgadmin-data:
+  postgresdata:
+  pgadmindata:
   mongodata:

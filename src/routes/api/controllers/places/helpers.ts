@@ -7,13 +7,17 @@ import { PlaceIdParmasModel } from './models';
 const handleCurrentUserResource = async (
   req: Request<PlaceIdParmasModel>,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<Response<void> | undefined> => {
   const user = getCurrentUser(req.app);
   const result = await placeRepository.getOne(req.params.placeId);
 
-  if (!result) return res.sendStatus(NOT_FOUND);
-  if (result.userId != user.id) return res.sendStatus(FORBIDDEN);
+  if (!result) {
+    return res.sendStatus(NOT_FOUND);
+  }
+  if (result.userId != user.id) {
+    return res.sendStatus(FORBIDDEN);
+  }
 
   next();
 };
